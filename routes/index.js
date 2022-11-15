@@ -1,10 +1,10 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
-db = require('../db/connection-db');
+db = require("../db/connection-db");
 
 /* GET home page. */
-router.get('/', async function (req, res, next) {
-  const respDB = await db('SELECT * FROM productos', []);
+router.get("/", async function (req, res, next) {
+  const respDB = await db("SELECT * FROM producto", []);
   /* lista = [];
   const LONGITUD_PEDAZOS = 4; // Partir en arreglo de 4
   for (let i = 0; i < respDB.data.length; i += LONGITUD_PEDAZOS) {
@@ -12,11 +12,11 @@ router.get('/', async function (req, res, next) {
     lista.push(pedazo);
   }
   console.log(lista); */
-  res.render('index', { productos: respDB.data });
+  res.render("index", { productos: respDB.data });
 });
 
-router.get('/categoria', async function (req, res, next) {
-  res.send('Categorías');
+router.get("/categoria", async function (req, res, next) {
+  res.send("Categorías");
 });
 
 module.exports = router;
