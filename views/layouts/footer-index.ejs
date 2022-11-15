@@ -64,6 +64,24 @@
             //console.log($(this).attr("id"))
         });
     });
+    function agregarCarrito(id_producto) {
+        console.log('id_producto ==>', id_producto);
+        $.ajax({
+            url: "/agregar/carrito",
+            type: "post",
+            data: {id_producto: id_producto} ,
+            success: function (response) {
+
+            // You will get response from your PHP page (what you echo or print)
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+            console.log(textStatus, errorThrown);
+            }
+        });
+    }
 </script>
+<!-- bundle -->
+<!-- <script src="dashboard/assets/js/vendor.min.js"></script>
+<script src="dashboard/assets/js/app.min.js"></script> -->
 </body>
 </html>

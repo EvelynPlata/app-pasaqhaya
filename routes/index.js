@@ -4,7 +4,7 @@ db = require('../db/connection-db');
 
 /* GET home page. */
 router.get('/', async function (req, res, next) {
-  const respDB = await db('SELECT * FROM productos', []);
+  const respDB = await db('SELECT * FROM producto', []);
   /* lista = [];
   const LONGITUD_PEDAZOS = 4; // Partir en arreglo de 4
   for (let i = 0; i < respDB.data.length; i += LONGITUD_PEDAZOS) {
@@ -13,6 +13,15 @@ router.get('/', async function (req, res, next) {
   }
   console.log(lista); */
   res.render('index', { productos: respDB.data });
+});
+
+router.post('/agregar/carrito', async function (req, res, next) {
+  console.log(req.body);
+  //res.send('Categorías');
+});
+
+router.get('/carrito', async function (req, res, next) {
+  res.render('carrito/carrito');
 });
 
 router.get('/categoria', async function (req, res, next) {
