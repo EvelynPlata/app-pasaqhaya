@@ -15,6 +15,15 @@ router.get("/", async function (req, res, next) {
   res.render("index", { productos: respDB.data });
 });
 
+router.post("/agregar/carrito", async function (req, res, next) {
+  console.log(req.body);
+  //res.send('Categorías');
+});
+
+router.get("/carrito", async function (req, res, next) {
+  res.render("carrito/carrito");
+});
+
 router.get("/categoria", async function (req, res, next) {
   res.send("Categorías");
 });
