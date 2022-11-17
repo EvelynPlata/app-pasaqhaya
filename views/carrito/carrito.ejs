@@ -29,160 +29,48 @@
                     </tr>
                   </thead>
                   <tbody>
+                    <% for(var i = 0; i < carrito.length; i++) { %>
                     <tr>
                       <td>
                         <img
-                          src="dashboard/assets/images/products/product-1.jpg"
+                          src="<%= carrito[i].imagen %>"
                           alt="contact-img"
                           title="contact-img"
                           class="rounded me-3"
                           height="64"
                         />
                         <p class="m-0 d-inline-block align-middle font-16">
-                          <a
-                            href="apps-ecommerce-products-details.html"
-                            class="text-body"
-                            >Amazing Modern Chair</a
+                          <a href="#" class="text-body"
+                            ><%= carrito[i].nombre %></a
                           >
                           <br />
                           <small class="me-2"><b>Size:</b> Large </small>
                           <small><b>Color:</b> Light Green </small>
                         </p>
                       </td>
-                      <td>$148.66</td>
+                      <td><%= carrito[i].precio_producto_unitario %> Bs</td>
                       <td>
                         <input
                           type="number"
                           min="1"
-                          value="5"
+                          value="<%= carrito[i].cantidad_producto %>"
                           class="form-control"
                           placeholder="Qty"
                           style="width: 90px"
-                          id="cantidad1"
-                          onchange="precioProducto(1, 148.66)"
+                          id="cantidad<%= carrito[i].id_producto %>"
+                          onchange="precioProducto('<%= carrito[i].id_producto %>', '<%= carrito[i].precio_producto_unitario %>')"
                         />
                       </td>
-                      <td id="total1">$743.30</td>
+                      <td id="totalproducto<%= carrito[i].id_producto %>">
+                        <%= carrito[i].precio_producto_total %> Bs
+                      </td>
                       <td>
                         <a href="javascript:void(0);" class="action-icon">
                           <i class="mdi mdi-delete"></i
                         ></a>
                       </td>
                     </tr>
-                    <tr>
-                      <td>
-                        <img
-                          src="dashboard/assets/images/products/product-2.jpg"
-                          alt="contact-img"
-                          title="contact-img"
-                          class="rounded me-3"
-                          height="64"
-                        />
-                        <p class="m-0 d-inline-block align-middle font-16">
-                          <a
-                            href="apps-ecommerce-products-details.html"
-                            class="text-body"
-                            >Biblio Plastic Armchair</a
-                          >
-                          <br />
-                          <small class="me-2"><b>Size:</b> Small </small>
-                          <small><b>Color:</b> Brown </small>
-                        </p>
-                      </td>
-                      <td>$99.00</td>
-                      <td>
-                        <input
-                          type="number"
-                          min="1"
-                          value="2"
-                          class="form-control"
-                          placeholder="Qty"
-                          style="width: 90px"
-                        />
-                      </td>
-                      <td>$198.00</td>
-                      <td>
-                        <a href="javascript:void(0);" class="action-icon">
-                          <i class="mdi mdi-delete"></i
-                        ></a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <img
-                          src="dashboard/assets/images/products/product-3.jpg"
-                          alt="contact-img"
-                          title="contact-img"
-                          class="rounded me-3"
-                          height="64"
-                        />
-                        <p class="m-0 d-inline-block align-middle font-16">
-                          <a
-                            href="apps-ecommerce-products-details.html"
-                            class="text-body"
-                            >Designer Awesome Chair</a
-                          >
-                          <br />
-                          <small class="me-2"><b>Size:</b> Medium </small>
-                          <small><b>Color:</b> Green </small>
-                        </p>
-                      </td>
-                      <td>$49.99</td>
-                      <td>
-                        <input
-                          type="number"
-                          min="1"
-                          value="10"
-                          class="form-control"
-                          placeholder="Qty"
-                          style="width: 90px"
-                        />
-                      </td>
-                      <td>$499.90</td>
-                      <td>
-                        <a href="javascript:void(0);" class="action-icon">
-                          <i class="mdi mdi-delete"></i
-                        ></a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <img
-                          src="dashboard/assets/images/products/product-5.jpg"
-                          alt="contact-img"
-                          title="contact-img"
-                          class="rounded me-3"
-                          height="64"
-                        />
-                        <p class="m-0 d-inline-block align-middle font-16">
-                          <a
-                            href="apps-ecommerce-products-details.html"
-                            class="text-body"
-                            >Unpowered aircraft</a
-                          >
-                          <br />
-                          <small class="me-2"><b>Size:</b> Large </small>
-                          <small><b>Color:</b> Orange </small>
-                        </p>
-                      </td>
-                      <td>$129.99</td>
-                      <td>
-                        <input
-                          type="number"
-                          min="1"
-                          value="1"
-                          class="form-control"
-                          placeholder="Qty"
-                          style="width: 90px"
-                        />
-                      </td>
-                      <td>$129.99</td>
-                      <td>
-                        <a href="javascript:void(0);" class="action-icon">
-                          <i class="mdi mdi-delete"></i
-                        ></a>
-                      </td>
-                    </tr>
+                    <% } %>
                   </tbody>
                 </table>
               </div>
@@ -216,24 +104,10 @@
                   <table class="table mb-0">
                     <tbody>
                       <tr>
-                        <td>Total :</td>
-                        <td>$1571.19</td>
-                      </tr>
-                      <tr>
-                        <td>Descuento :</td>
-                        <td>-$157.11</td>
-                      </tr>
-                      <tr>
-                        <td>Costo de envió :</td>
-                        <td>$25</td>
-                      </tr>
-                      <tr>
-                        <td>Impuesto estimado :</td>
-                        <td>$19.22</td>
-                      </tr>
-                      <tr>
                         <th>Total :</th>
-                        <th>$1458.3</th>
+                        <th id="totalpago<%= carrito[0].id_pedido %>">
+                          <%= carrito[0].total_pago %> Bs
+                        </th>
                       </tr>
                     </tbody>
                   </table>

@@ -15,7 +15,7 @@ router.get("/", async function (req, res, next) {
   if (respDB.ok) {
     res.render("index", { productos: respDB.data });
   } else {
-    res.render("error",);
+    res.render("error");
   }
 });
 
@@ -23,7 +23,7 @@ router.post("/agregar/carrito", async function (req, res, next) {
   let total_pago = 0;
   const sqlPedidosPorCliente = `SELECT p.id_pedido,p.id_cliente,dp.id_producto,p.total_pago,dp.cantidad_producto,dp.precio_producto_unitario,dp.precio_producto_total
   FROM pedidos AS p LEFT JOIN	detalle_pedidos AS dp	ON p.id_pedido = dp.id_pedido
-  WHERE	p.id_cliente = 2 AND p.estado_pago = 0 AND p.estado_compra = 0`;
+  WHERE	p.id_cliente = ? AND p.estado_pago = 0 AND p.estado_compra = 0`;
   const sqlInsertPedido = "INSERT INTO pedidos (id_cliente, total_pago) VALUES (?, ?);";
   const sqlInsertDetallePedidos = "INSERT INTO detalle_pedidos (id_pedido, id_producto, cantidad_producto, precio_producto_unitario, precio_producto_total) VALUES (?, ?, ?, ?, ?);";
   const sqlUpdatePedido = "UPDATE pedidos SET total_pago = ? WHERE id_pedido = ?;";
@@ -72,9 +72,9 @@ router.post("/agregar/carrito", async function (req, res, next) {
   //res.send('Categorías');
 });
 
-router.get("/carrito", async function (req, res, next) {
+/* router.get("/carrito", async function (req, res, next) {
   res.render("carrito/carrito");
-});
+}); */
 
 router.get("/categoria", async function (req, res, next) {
   res.send("Categorías");
