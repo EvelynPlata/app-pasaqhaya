@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-3">
-                <img src="images/index/images/ecommerce-logo-png-11.png" height="40" alt="">
+                <img src="images/index/images/pasaqhaya letra.jpeg" height="40" alt="">
                 <h4 class="mt-3">Get the app</h4>
                 <p>NEfresh App is now available on Google Play & App Store. Get it now.</p>
                 <img src="images/index/images/store1.png" alt="">
@@ -64,12 +64,17 @@
             //console.log($(this).attr("id"))
         });
     });
-    function agregarCarrito(id_producto) {
+    function agregarCarrito(id_producto, precio) {
         console.log('id_producto ==>', id_producto);
+        console.log('precio ==>', precio);
         $.ajax({
             url: "/agregar/carrito",
             type: "post",
-            data: {id_producto: id_producto} ,
+            data: {
+                id_cliente: 2,
+                id_producto,
+                precio
+            },
             success: function (response) {
 
             // You will get response from your PHP page (what you echo or print)
@@ -83,5 +88,6 @@
 <!-- bundle -->
 <!-- <script src="dashboard/assets/js/vendor.min.js"></script>
 <script src="dashboard/assets/js/app.min.js"></script> -->
+<script src="javascripts/carrito.min.js"></script>
 </body>
 </html>
