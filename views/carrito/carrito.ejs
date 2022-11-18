@@ -29,48 +29,61 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <% for(var i = 0; i < carrito.length; i++) { %>
-                    <tr>
-                      <td>
-                        <img
-                          src="<%= carrito[i].imagen %>"
-                          alt="contact-img"
-                          title="contact-img"
-                          class="rounded me-3"
-                          height="64"
-                        />
-                        <p class="m-0 d-inline-block align-middle font-16">
-                          <a href="#" class="text-body"
-                            ><%= carrito[i].nombre %></a
+                    <% if (carrito.length > 0) { %>
+                      <% for(var i = 0; i < carrito.length; i++) { %>
+                      <tr
+                        id="fila<%= carrito[i].id_pedido %><%= carrito[i].id_producto %>"
+                      >
+                        <td>
+                          <img
+                            src="<%= carrito[i].imagen %>"
+                            alt="contact-img"
+                            title="contact-img"
+                            class="rounded me-3"
+                            height="64"
+                          />
+                          <p class="m-0 d-inline-block align-middle font-16">
+                            <a href="#" class="text-body"
+                              ><%= carrito[i].nombre %></a
+                            >
+                            <br />
+                            <small class="me-2"><b>Size:</b> Large </small>
+                            <small><b>Color:</b> Light Green </small>
+                          </p>
+                        </td>
+                        <td><%= carrito[i].precio_producto_unitario %> Bs</td>
+                        <td>
+                          <input
+                            type="number"
+                            min="1"
+                            value="<%= carrito[i].cantidad_producto %>"
+                            class="form-control"
+                            placeholder="Qty"
+                            style="width: 90px"
+                            id="cantidad<%= carrito[i].id_producto %>"
+                            onchange="precioProducto('<%= carrito[i].id_producto %>', '<%= carrito[i].precio_producto_unitario %>', '<%= carrito[i].id_pedido %>', '<%= carrito[i].id_cliente %>')"
+                          />
+                        </td>
+                        <td id="totalproducto<%= carrito[i].id_producto %>">
+                          <%= carrito[i].precio_producto_total %> Bs
+                        </td>
+                        <td>
+                          <a
+                            onclick="eliminarProducto('<%= carrito[i].id_pedido %>', '<%= carrito[i].id_producto %>', '<%= carrito[i].id_cliente %>')"
+                            class="action-icon"
                           >
-                          <br />
-                          <small class="me-2"><b>Size:</b> Large </small>
-                          <small><b>Color:</b> Light Green </small>
-                        </p>
-                      </td>
-                      <td><%= carrito[i].precio_producto_unitario %> Bs</td>
-                      <td>
-                        <input
-                          type="number"
-                          min="1"
-                          value="<%= carrito[i].cantidad_producto %>"
-                          class="form-control"
-                          placeholder="Qty"
-                          style="width: 90px"
-                          id="cantidad<%= carrito[i].id_producto %>"
-                          onchange="precioProducto('<%= carrito[i].id_producto %>', '<%= carrito[i].precio_producto_unitario %>')"
-                        />
-                      </td>
-                      <td id="totalproducto<%= carrito[i].id_producto %>">
-                        <%= carrito[i].precio_producto_total %> Bs
-                      </td>
-                      <td>
-                        <a href="javascript:void(0);" class="action-icon">
-                          <i class="mdi mdi-delete"></i
-                        ></a>
-                      </td>
-                    </tr>
+                            <i class="mdi mdi-delete"></i
+                          ></a>
+                        </td>
+                      </tr>
+                      <% } %>
+                    <% } else { %>
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        <strong>Warning - </strong> No hay Datos en el carrito
+                    </div>
                     <% } %>
+                    
                   </tbody>
                 </table>
               </div>
@@ -86,7 +99,7 @@
                       href="apps-ecommerce-checkout.html"
                       class="btn btn-danger"
                     >
-                      <i class="mdi mdi-cart-plus me-1"></i> Checkout
+                      <i class="mdi mdi-cart-plus me-1"></i> Comprar
                     </a>
                   </div>
                 </div>
@@ -105,9 +118,15 @@
                     <tbody>
                       <tr>
                         <th>Total :</th>
+                        <% if (carrito.length > 0) { %>
                         <th id="totalpago<%= carrito[0].id_pedido %>">
                           <%= carrito[0].total_pago %> Bs
                         </th>
+                        <% } else { %>
+                        <th id="totalpago">
+                          0 Bs
+                        </th>
+                        <% } %>
                       </tr>
                     </tbody>
                   </table>

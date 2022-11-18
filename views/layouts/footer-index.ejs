@@ -46,6 +46,8 @@
 <div class="loading" id="loader">
     <img src="images/index/images/preloader.svg" alt="">
 </div>
+
+<div id="msgcarrito"></div>
 <script>
     setTimeout(() => {
         document.getElementById('loader').style.display= "none";
@@ -76,8 +78,24 @@
                 precio
             },
             success: function (response) {
-
-            // You will get response from your PHP page (what you echo or print)
+                console.log(response);
+                var dataHtml = "";
+                if(response.ok) {
+                    dataHtml = dataHtml +`
+                    <div class="alert alert-success alert-dismissible bg-success text-white border-0 fade show" role="alert">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        <strong>Success - </strong> ${response.msg}
+                    </div>
+                    `;
+                } else {
+                    dataHtml = dataHtml +`
+                    <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show" role="alert">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        <strong>Error - </strong> ${response.msg}
+                    </div>
+                    `;
+                }
+                $("#msgcarrito").append(dataHtml);
             },
             error: function(jqXHR, textStatus, errorThrown) {
             console.log(textStatus, errorThrown);
@@ -89,5 +107,8 @@
 <!-- <script src="dashboard/assets/js/vendor.min.js"></script>
 <script src="dashboard/assets/js/app.min.js"></script> -->
 <script src="javascripts/carrito.min.js"></script>
+<!-- demo js -->
+<script src="dashboard/assets/js/pages/demo.toastr.js"></script>
+<!-- -->
 </body>
 </html>
