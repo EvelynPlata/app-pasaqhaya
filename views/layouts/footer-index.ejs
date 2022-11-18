@@ -56,8 +56,8 @@
 <script src="javascripts/jquery/jquery-3.6.1.min.js"></script>
 
 <!-- bundle -->
-<script src="assets/js/vendor.min.js"></script>
-<script src="assets/js/app.min.js"></script>
+<script src="dashboard/assets/js/vendor.min.js"></script>
+<script src="dashboard/assets/js/app.min.js"></script>
 <!-- demo js -->
 <script src="dashboard/assets/js/pages/demo.toastr.js"></script>
 <script src="javascripts/carrito.min.js"></script>
@@ -85,25 +85,11 @@
             },
             success: function (response) {
                 console.log(response);
-                var dataHtml = "";
                 if(response.ok) {
-                    dataHtml = dataHtml +`
-                    <div class="alert alert-success alert-dismissible bg-success text-white border-0 fade show" role="alert">
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        <strong>Success - </strong> ${response.msg}
-                    </div>
-                    `;
-                    //$.NotificationApp.send("Title","Your awesome message text","Position","Background color","Icon");
-                    //$.NotificationApp.send("Bien hecho!","dddd","bottom-right","rgba(0,0,0,0.2)","success")
+                    $.NotificationApp.send("Bien hecho!",response.msg,"bottom-right","rgba(0,0,0,0.2)","success");
                 } else {
-                    dataHtml = dataHtml +`
-                    <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show" role="alert">
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        <strong>Error - </strong> ${response.msg}
-                    </div>
-                    `;
+                    $.NotificationApp.send("Aviso!",response.msg,"bottom-right","rgba(0,0,0,0.2)","warning");
                 }
-                $("#msgcarrito").append(dataHtml);
             },
             error: function(jqXHR, textStatus, errorThrown) {
             console.log(textStatus, errorThrown);
