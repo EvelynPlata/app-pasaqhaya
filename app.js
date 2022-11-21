@@ -19,6 +19,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //Configuración de rutas que se crean
 app.use('/', require('./routes/index'));
 app.use('/carrito', require('./routes/carrito'));
+app.use('/compra', require('./routes/compras'));
 app.use('/users', require('./routes/users'));
 app.use('/users', require('./routes/users'));
 //Configuración de rutas que se crean

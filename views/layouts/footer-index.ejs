@@ -46,6 +46,7 @@
 <div class="loading" id="loader">
     <img src="images/index/images/preloader.svg" alt="">
 </div>
+
 <script>
     setTimeout(() => {
         document.getElementById('loader').style.display= "none";
@@ -53,6 +54,13 @@
 </script>
 <script src="javascripts/index/js/bootstrap.bundle.js"></script>
 <script src="javascripts/jquery/jquery-3.6.1.min.js"></script>
+
+<!-- bundle -->
+<script src="dashboard/assets/js/vendor.min.js"></script>
+<script src="dashboard/assets/js/app.min.js"></script>
+<!-- demo js -->
+<script src="dashboard/assets/js/pages/demo.toastr.js"></script>
+<script src="javascripts/carrito.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function(){
         $(window).attr('location','#')
@@ -76,8 +84,12 @@
                 precio
             },
             success: function (response) {
-
-            // You will get response from your PHP page (what you echo or print)
+                console.log(response);
+                if(response.ok) {
+                    $.NotificationApp.send("Bien hecho!",response.msg,"bottom-right","rgba(0,0,0,0.2)","success");
+                } else {
+                    $.NotificationApp.send("Aviso!",response.msg,"bottom-right","rgba(0,0,0,0.2)","warning");
+                }
             },
             error: function(jqXHR, textStatus, errorThrown) {
             console.log(textStatus, errorThrown);
@@ -85,9 +97,5 @@
         });
     }
 </script>
-<!-- bundle -->
-<!-- <script src="dashboard/assets/js/vendor.min.js"></script>
-<script src="dashboard/assets/js/app.min.js"></script> -->
-<script src="javascripts/carrito.min.js"></script>
 </body>
 </html>

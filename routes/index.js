@@ -37,10 +37,22 @@ router.post("/agregar/carrito", async function (req, res, next) {
       const dbInsertDetallePedidos = await db(sqlInsertDetallePedidos, [id_pedido, id_producto, 1, precio, precio]);
       if (!dbInsertDetallePedidos.ok) {
         console.log('Error al agregar al carrito detalles_pedidos');
+        res.json({
+          ok: false,
+          msg: 'Error al agregar al carrito'
+        });
       }
       console.log('Agregado al carrito');
+      res.json({
+        ok: true,
+        msg: 'Producto agregado al carrito'
+      });
     } else {
       console.log('Error al agregar al carrito pedido');
+      res.json({
+        ok: false,
+        msg: 'Error al agregar al carrito'
+      });
     }
   } else {
     console.log('carrito existe');
@@ -51,7 +63,7 @@ router.post("/agregar/carrito", async function (req, res, next) {
 
         for (let i = 0; i < pedidosPorCliente.length; i++) {
           console.log(pedidosPorCliente[i]);
-          total_pago = total_pago + parseFloat(pedidosPorCliente[i].precio_producto_total);
+          total_pago = total_pago + parseFloat(pedidosPorCliente[i].precio_producto_total || 0) ;
         }
         console.log(total_pago);
         total_pago = total_pago + parseFloat(precio);
@@ -59,13 +71,29 @@ router.post("/agregar/carrito", async function (req, res, next) {
         const dbUpdatePedido = await db(sqlUpdatePedido, [total_pago, pedidosPorCliente[0].id_pedido]);
         if (!dbUpdatePedido.ok) {
           console.log('Error al agregar al carrito detalle_pedidos');
+          res.json({
+            ok: false,
+            msg: 'Error al agregar al carrito'
+          });
         }
         console.log('Agregado al carrito');
+        res.json({
+          ok: true,
+          msg: 'Producto agregado al carrito'
+        });
       } else {
         console.log('Error al agregar al carrito pedido');
+        res.json({
+          ok: false,
+          msg: 'Error al agregar al carrito'
+        });
       }
     } else {
       console.log('Ya existe en el carrito');
+      res.json({
+        ok: true,
+        msg: 'Producto agregado al carrito'
+      });
     }
   }
   //console.log(pedidoPorCliente);
