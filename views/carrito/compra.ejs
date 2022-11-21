@@ -1,0 +1,437 @@
+<%- include ../layouts/header-index.ejs %>
+
+<div class="container-fluid">
+  <!-- start page title -->
+  <div class="row">
+    <div class="col-12">
+      <div class="page-title-box">
+        <h4 class="page-title">Compra</h4>
+      </div>
+    </div>
+  </div>
+  <!-- end page title -->
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <!-- Checkout Steps -->
+          <ul class="nav nav-pills bg-nav-pills nav-justified mb-3">
+            <li class="nav-item">
+              <a
+                id="nav-shipping-information"
+                href="#shipping-information"
+                data-bs-toggle="tab"
+                aria-expanded="false"
+                class="nav-link rounded-0 active"
+              >
+                <i class="mdi mdi-account-circle font-18"></i>
+                <span class="d-none d-lg-block">Datos de envió</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                id="nav-payment-information"
+                href="#"
+                data-bs-toggle="tab"
+                aria-expanded="false"
+                class="nav-link rounded-0"
+                onclick="continuarPago('<%= cliente.id_cliente %>', '<%= carrito[0].id_pedido %>')"
+              >
+                <i class="mdi mdi-cash-multiple font-18"></i>
+                <span class="d-none d-lg-block">Información de pago</span>
+              </a>
+            </li>
+          </ul>
+
+          <!-- Steps Information -->
+          <div class="tab-content">
+            <!-- Billing Content-->
+            <div class="tab-pane show active" id="shipping-information">
+              <div class="row">
+                <div class="col-lg-8">
+                  <h4 class="mt-2">Datos de envió</h4>
+
+                  <p class="text-muted mb-4">
+                    Rellene el siguiente formulario para realizar el envío.
+                  </p>
+
+                  <form class="needs-validation" novalidate id="formBilling">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="mb-3">
+                          <label for="billing-first-name" class="form-label"
+                            >Nombres</label
+                          >
+                          <input
+                            class="form-control"
+                            type="text"
+                            placeholder="Enter your first name"
+                            disabled=""
+                            value="<%= cliente.nombre %>"
+                            id="billing-first-name"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="mb-3">
+                          <label for="billing-last-name" class="form-label"
+                            >Apellidos</label
+                          >
+                          <input
+                            class="form-control"
+                            type="text"
+                            placeholder="Enter your last name"
+                            disabled=""
+                            value="<%= cliente.apellidos %>"
+                            id="billing-last-name"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <!-- end row -->
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="mb-3">
+                          <label for="billing-email-address" class="form-label"
+                            >Dirección de correo electrónico</label
+                          >
+                          <input
+                            class="form-control"
+                            type="email"
+                            placeholder="Enter your email"
+                            disabled=""
+                            value="<%= cliente.email %>"
+                            id="billing-email-address"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="mb-3">
+                          <label for="billing-phone" class="form-label"
+                            >Teléfono <span class="text-danger">*</span></label
+                          >
+                          <input
+                            class="form-control"
+                            type="number"
+                            placeholder="(xx) xxx xxxx xxx"
+                            value="<%= cliente.telefono %>"
+                            required
+                            id="billing-phone"
+                          />
+                          <div class="invalid-feedback" id="error-billing-phone"> billing-phone </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- end row -->
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="mb-3">
+                          <label for="billing-address" class="form-label"
+                            >Dirección de envió <span class="text-danger">*</span></label
+                          >
+                          <input
+                            class="form-control"
+                            type="text"
+                            placeholder="Enter full address"
+                            value="<%= cliente.direccion_cliente %>"
+                            required
+                            id="billing-address"
+                          />
+                          <div class="invalid-feedback" id="error-billing-address"> billing-address </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="mb-3">
+                          <label for="billing-city" class="form-label"
+                            >Departamento <span class="text-danger">*</span></label
+                          >
+                          <input
+                            class="form-control"
+                            type="text"
+                            placeholder="Enter full address"
+                            value="<%= cliente.departamento %>"
+                            required
+                            id="billing-city"
+                          />
+                          <div class="invalid-feedback" id="error-billing-city"> billing-city </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- end row -->
+
+                    <div class="row mt-4">
+                      <div class="col-sm-6">
+                        <a
+                          href="carrito?id_cliente=<%= cliente.id_cliente %>"
+                          class="btn text-muted d-none d-sm-inline-block btn-link fw-semibold"
+                        >
+                          <i class="mdi mdi-arrow-left"></i> Volver al carrito de compras
+                        </a>
+                      </div>
+                      <!-- end col -->
+                      <div class="col-sm-6">
+                        <div class="text-sm-end nav-item">
+                          <!-- href="#payment-information" -->
+                          <a
+                            onclick="continuarPago('<%= cliente.id_cliente %>', '<%= carrito[0].id_pedido %>')"
+                            class="btn btn-danger"
+                          >
+                            <i class="mdi mdi-truck-fast me-1"></i> Continuar con el pago
+                        </a>
+                        </div>
+                      </div>
+                      <!-- end col -->
+                    </div>
+                    <!-- end row -->
+                  </form>
+                </div>
+                <div class="col-lg-4">
+                  <div class="border p-3 mt-4 mt-lg-0 rounded">
+                    <h4 class="header-title mb-3">Resumen del Pedido</h4>
+
+                    <div class="table-responsive">
+                      <table class="table table-centered mb-0">
+                        <tbody>
+                          <% if (carrito.length > 0) { %>
+                            <% for(var i = 0; i < carrito.length; i++) { %>
+                            <tr>
+                              <td>
+                                <img
+                                  src="<%= carrito[i].imagen %>"
+                                  alt="contact-img"
+                                  title="contact-img"
+                                  class="rounded me-2"
+                                  height="48"
+                                />
+                                <p class="m-0 d-inline-block align-middle">
+                                  <a
+                                    href="#"
+                                    class="text-body fw-semibold"
+                                    ><%= carrito[i].nombre %></a
+                                  >
+                                  <br />
+                                  <small><%= carrito[i].cantidad_producto %> x <%= carrito[i].precio_producto_unitario %> Bs</small>
+                                </p>
+                              </td>
+                              <td class="text-end"><%= carrito[i].precio_producto_total %> </td>
+                            </tr>
+                            <% } %>
+                          <% } else { %>
+                          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                              <strong>Warning - </strong> No hay Datos en el carrito
+                          </div>
+                          <% } %>
+
+                          <tr class="text-end">
+                            <td>
+                              <h6 class="m-0">Sub Total:</h6>
+                            </td>
+                            <td class="text-end">
+                              <% if (carrito.length > 0) { %>
+                                <%= carrito[0].total_pago %> Bs
+                              <% } else { %>
+                                -- Bs
+                              <% } %>
+                            </td>
+                          </tr>
+                          <tr class="text-end">
+                            <td>
+                              <h5 class="m-0">Total:</h5>
+                            </td>
+                            <td class="text-end fw-semibold">
+                              <% if (carrito.length > 0) { %>
+                                <%= carrito[0].total_pago %> Bs
+                              <% } else { %>
+                                -- Bs
+                              <% } %>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <!-- end table-responsive -->
+                  </div>
+                  <!-- end .border-->
+                </div>
+                <!-- end col -->
+              </div>
+              <!-- end row-->
+            </div>
+            <!-- End Billing Information Content-->
+
+            <!-- Payment Content-->
+            <div class="tab-pane" id="payment-information">
+              <div class="row">
+                <div class="col-lg-8">
+                  <h4 class="mt-2">Pago QR</h4>
+
+                  <p class="text-muted mb-4">
+                    Realize el pago con el código QR generado.
+                  </p>
+
+                  <!-- Pay with Paypal box-->
+                  <div class="border p-3 mb-3 rounded">
+                    <div class="row">
+                      <div class="col-sm-8">
+                        <div class="form-check">
+                          <input
+                            type="radio"
+                            id="BillingOptRadio2"
+                            name="billingOptions"
+                            class="form-check-input"
+                          />
+                          <label
+                            class="form-check-label font-16 fw-bold"
+                            for="BillingOptRadio2"
+                            >Pay with Paypal</label
+                          >
+                        </div>
+                        <p class="mb-0 ps-3 pt-1">
+                          You will be redirected to PayPal website to complete
+                          your purchase securely.
+                        </p>
+                      </div>
+                      <div class="col-sm-4 text-sm-end mt-3 mt-sm-0">
+                        <img
+                          src="assets/images/payments/paypal.png"
+                          height="25"
+                          alt="paypal-img"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <!-- end Pay with Paypal box-->
+
+                  <div class="row mt-4">
+                    <div class="col-sm-6">
+                      <a
+                        href="carrito?id_cliente=<%= cliente.id_cliente %>"
+                        class="btn text-muted d-none d-sm-inline-block btn-link fw-semibold"
+                      >
+                        <i class="mdi mdi-arrow-left"></i> Volver al carrito de compras
+                      </a>
+                    </div>
+                    <!-- end col -->
+                    <div class="col-sm-6">
+                      <div class="text-sm-end">
+                        <a
+                          href="apps-ecommerce-checkout.html"
+                          class="btn btn-danger"
+                        >
+                          <i class="mdi mdi-cash-multiple me-1"></i> Completar orden
+                        </a>
+                      </div>
+                    </div>
+                    <!-- end col -->
+                  </div>
+                  <!-- end row-->
+                </div>
+                <!-- end col -->
+
+                <div class="col-lg-4">
+                  <div class="border p-3 mt-4 mt-lg-0 rounded">
+                    <h4 class="header-title mb-3">Order Summary</h4>
+
+                    <div class="table-responsive">
+                      <table class="table table-centered mb-0">
+                        <tbody>
+                          <% if (carrito.length > 0) { %>
+                            <% for(var i = 0; i < carrito.length; i++) { %>
+                            <tr>
+                              <td>
+                                <img
+                                  src="<%= carrito[i].imagen %>"
+                                  alt="contact-img"
+                                  title="contact-img"
+                                  class="rounded me-2"
+                                  height="48"
+                                />
+                                <p class="m-0 d-inline-block align-middle">
+                                  <a
+                                    href="#"
+                                    class="text-body fw-semibold"
+                                    ><%= carrito[i].nombre %></a
+                                  >
+                                  <br />
+                                  <small><%= carrito[i].cantidad_producto %> x <%= carrito[i].precio_producto_unitario %> Bs</small>
+                                </p>
+                              </td>
+                              <td class="text-end"><%= carrito[i].precio_producto_total %> </td>
+                            </tr>
+                            <% } %>
+                          <% } else { %>
+                          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                              <strong>Warning - </strong> No hay Datos en el carrito
+                          </div>
+                          <% } %>
+
+                          <tr class="text-end">
+                            <td>
+                              <h6 class="m-0">Sub Total:</h6>
+                            </td>
+                            <td class="text-end">
+                              <% if (carrito.length > 0) { %>
+                                <%= carrito[0].total_pago %> Bs
+                              <% } else { %>
+                                -- Bs
+                              <% } %>
+                            </td>
+                          </tr>
+                          <tr class="text-end">
+                            <td>
+                              <h5 class="m-0">Total:</h5>
+                            </td>
+                            <td class="text-end fw-semibold">
+                              <% if (carrito.length > 0) { %>
+                                <%= carrito[0].total_pago %> Bs
+                              <% } else { %>
+                                -- Bs
+                              <% } %>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    
+                    <!-- end table-responsive -->
+                  </div>
+                  <!-- end .border-->
+                </div>
+                <!-- end col -->
+              </div>
+              <!-- end row-->
+            </div>
+            <!-- End Payment Information Content-->
+          </div>
+          <!-- end tab content-->
+        </div>
+        <!-- end card-body-->
+      </div>
+      <!-- end card-->
+    </div>
+    <!-- end col -->
+  </div>
+  <!-- end row-->
+</div>
+
+<div id="info-alert-modal" class="modal fade" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-body p-4">
+                <div class="text-center">
+                    <i class="dripicons-information h1 text-info"></i>
+                    <h4 class="mt-2">Cargando</h4>
+                    <p class="mt-3">Espere por favor ...</p>
+                    <div class="spinner-border avatar-lg text-primary" role="status"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include ../layouts/footer-index.ejs %>
