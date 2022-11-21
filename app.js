@@ -20,6 +20,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', require('./routes/index'));
 app.use('/carrito', require('./routes/carrito'));
 app.use('/users', require('./routes/users'));
+app.use('/users', require('./routes/users'));
 //Configuración de rutas que se crean
 
 // catch 404 and forward to error handler
