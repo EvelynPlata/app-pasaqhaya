@@ -272,36 +272,20 @@
                   <p class="text-muted mb-4">
                     Realize el pago con el código QR generado.
                   </p>
+                  <p class="text-muted mb-4">
+                    Al finalizar el pago presione el botón <b>'Completar orden'</b> para procesar su pedido.
+                  </p>
 
                   <!-- Pay with Paypal box-->
                   <div class="border p-3 mb-3 rounded">
                     <div class="row">
-                      <div class="col-sm-8">
-                        <div class="form-check">
-                          <input
-                            type="radio"
-                            id="BillingOptRadio2"
-                            name="billingOptions"
-                            class="form-check-input"
-                          />
-                          <label
-                            class="form-check-label font-16 fw-bold"
-                            for="BillingOptRadio2"
-                            >Pay with Paypal</label
-                          >
+                      <div class="col-sm-4"></div>
+                      <div class="col-sm-4">
+                        <div class="card d-block">
+                            <img class="card-img-top" src="<%= carrito[0].imagen_qr %>" alt="Card image cap">
                         </div>
-                        <p class="mb-0 ps-3 pt-1">
-                          You will be redirected to PayPal website to complete
-                          your purchase securely.
-                        </p>
                       </div>
-                      <div class="col-sm-4 text-sm-end mt-3 mt-sm-0">
-                        <img
-                          src="assets/images/payments/paypal.png"
-                          height="25"
-                          alt="paypal-img"
-                        />
-                      </div>
+                      <div class="col-sm-4"></div>
                     </div>
                   </div>
                   <!-- end Pay with Paypal box-->
