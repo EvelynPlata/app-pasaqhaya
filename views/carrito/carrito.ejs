@@ -94,6 +94,7 @@
                 <div class="col-sm-6"></div>
                 <!-- end col -->
                 <div class="col-sm-6">
+                  <% if (carrito.length > 0) { %>
                   <div class="text-sm-end">
                     <a
                       href="/compra?id_cliente=<%= carrito[0].id_cliente %>"
@@ -102,6 +103,7 @@
                       <i class="mdi mdi-cart-plus me-1"></i> Comprar
                     </a>
                   </div>
+                  <% } %>
                 </div>
                 <!-- end col -->
               </div>

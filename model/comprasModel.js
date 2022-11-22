@@ -14,6 +14,18 @@ carritoPorCliente = async (id_cliente) => {
     }
 }
 
+completarCompraPorId = async (id_pedido) => {
+    const sql = `UPDATE pedidos SET fecha_pedido = NOW(), estado_compra = 1 WHERE id_pedido = ?;`;
+    const respDb = await db(sql, [id_pedido]);
+    console.log(respDb);
+    if (respDb.ok) {
+        return respDb.data;
+    } else {
+        return null
+    }
+}
+
 module.exports = {
-    carritoPorCliente
+    carritoPorCliente,
+    completarCompraPorId
 }

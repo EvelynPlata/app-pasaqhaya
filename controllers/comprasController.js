@@ -1,5 +1,5 @@
 var express = require('express');
-const { carritoPorCliente } = require('../model/comprasModel');
+const { carritoPorCliente, completarCompraPorId } = require('../model/comprasModel');
 const { clientePorId, updateClienteDatosPorId } = require('../model/usuariosModel');
 const { updateInfPedidoPorId } = require('../model/pedidosModel');
 
@@ -47,7 +47,33 @@ actualizarDatos = async (req, res, next) => {
     res.json(respJSON);
 };
 
+completarOrden = async (req, res, next) => {
+    const { id_pedido } = req.body;
+    console.log("completarOrden", req.body);
+    const respDbPedido = await completarCompraPorId(id_pedido);
+    let respJSON = null;
+    if (respDbPedido === null) {
+        respJSON = {
+            ok: false,
+            msg: 'Error al actualizar los datos',
+            data: {
+                respDbPedido
+            }
+        }
+    }
+    respJSON = {
+        ok: true,
+        msg: 'Pedido completado exitosamente',
+        data: {
+            respDbPedido
+        }
+    }
+
+    res.json(respJSON);
+};
+
 module.exports = {
     compra,
-    actualizarDatos
+    actualizarDatos,
+    completarOrden
 };

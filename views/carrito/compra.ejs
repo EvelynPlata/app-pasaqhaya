@@ -302,12 +302,12 @@
                     <!-- end col -->
                     <div class="col-sm-6">
                       <div class="text-sm-end">
-                        <a
-                          href="apps-ecommerce-checkout.html"
+                        <button
+                          onclick="completarOrden('<%= carrito[0].id_pedido %>')"
                           class="btn btn-danger"
                         >
                           <i class="mdi mdi-cash-multiple me-1"></i> Completar orden
-                        </a>
+                        </button>
                       </div>
                     </div>
                     <!-- end col -->
@@ -404,6 +404,21 @@
 </div>
 
 <div id="info-alert-modal" class="modal fade" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-body p-4">
+                <div class="text-center">
+                    <i class="dripicons-information h1 text-info"></i>
+                    <h4 class="mt-2">Cargando</h4>
+                    <p class="mt-3">Espere por favor ...</p>
+                    <div class="spinner-border avatar-lg text-primary" role="status"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="loading" class="modal fade" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-body p-4">
