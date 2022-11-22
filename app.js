@@ -21,7 +21,7 @@ app.use('/', require('./routes/index'));
 app.use('/carrito', require('./routes/carrito'));
 app.use('/compra', require('./routes/compras'));
 app.use('/users', require('./routes/users'));
-app.use('/users', require('./routes/users'));
+app.use('/recetas', require('./routes/recetas'));
 //Configuración de rutas que se crean
 
 // catch 404 and forward to error handler
