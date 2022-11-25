@@ -1,7 +1,9 @@
 var express = require('express');
+var fileUpload = require('express-fileupload');
 const { carritoPorCliente, completarCompraPorId } = require('../model/comprasModel');
 const { clientePorId, updateClienteDatosPorId } = require('../model/usuariosModel');
 const { updateInfPedidoPorId } = require('../model/pedidosModel');
+const { guardarArchivo } = require('./subirArchivoController');
 
 /* GET users listing. */
 compra = async (req, res, next) => {
@@ -48,10 +50,40 @@ actualizarDatos = async (req, res, next) => {
 };
 
 completarOrden = async (req, res, next) => {
-    const { id_pedido } = req.body;
     console.log("completarOrden", req.body);
-    const respDbPedido = await completarCompraPorId(id_pedido);
     let respJSON = null;
+    const { id_pedido } = req.body;
+    const archivo = req.files.file;
+    if (!req.files) {
+        respJSON = {
+            ok: false,
+            msg: 'La imagen del comprobante es obligatoria',
+            data: {
+                error: null
+            }
+        };
+    }
+    let nombreCortado = archivo.name.split('.')
+    let extension = nombreCortado[nombreCortado.length - 1];
+    let extensionesValidas = ['png', 'jpg', 'gif', 'jpeg'];
+
+    if (extensionesValidas.indexOf(extension) < 0) {
+        respJSON = {
+            ok: false,
+            msg: 'Las extensiones validas son: ' + extensionesValidas.join(', '),
+            data: {
+                error: null
+            }
+        };
+    }
+
+    const respGuardar = await guardarArchivo(archivo, `public/images/comp`, `${id_pedido}.${extension}`);
+    console.log(respGuardar);
+    if (!respGuardar.ok) {
+        return res.json(respGuardar);
+    }
+
+    const respDbPedido = await completarCompraPorId(id_pedido, `images/comp/${id_pedido}.${extension}`);
     if (respDbPedido === null) {
         respJSON = {
             ok: false,

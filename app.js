@@ -3,12 +3,17 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var fileUpload = require('express-fileupload');
 
 var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+//Carga de archivos
+app.use(fileUpload());
+//Carga de archivos
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -20,6 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', require('./routes/index'));
 app.use('/carrito', require('./routes/carrito'));
 app.use('/compra', require('./routes/compras'));
+app.use('/admin', require('./routes/admin'));
 app.use('/users', require('./routes/users'));
 //Configuración de rutas que se crean
 

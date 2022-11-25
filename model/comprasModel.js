@@ -14,9 +14,9 @@ carritoPorCliente = async (id_cliente) => {
     }
 }
 
-completarCompraPorId = async (id_pedido) => {
-    const sql = `UPDATE pedidos SET fecha_pedido = NOW(), estado_compra = 1 WHERE id_pedido = ?;`;
-    const respDb = await db(sql, [id_pedido]);
+completarCompraPorId = async (id_pedido, imagen_comprobante) => {
+    const sql = `UPDATE pedidos SET fecha_pedido = NOW(), estado_compra = 1, imagen_comprobante = ? WHERE id_pedido = ?;`;
+    const respDb = await db(sql, [imagen_comprobante, id_pedido]);
     console.log(respDb);
     if (respDb.ok) {
         return respDb.data;
