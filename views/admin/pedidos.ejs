@@ -1,0 +1,93 @@
+<%- include layouts/header.ejs %>
+
+<div class="container-fluid">
+    
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Pasaqhaya</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Admin</a></li>
+                        <li class="breadcrumb-item active">Pedidos</li>
+                    </ol>
+                </div>
+                <h4 class="page-title">Pedidos</h4>
+            </div>
+        </div>
+    </div>     
+    <!-- end page title --> 
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-centered mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>ID Pedido</th>
+                                    <th>Fecha</th>
+                                    <th>Estado de Compra</th>
+                                    <th>Total</th>
+                                    <th>Método de pago</th>
+                                    <th>Estado de Pago</th>
+                                    <th style="width: 125px;">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <% if (pedidos.length == 0) { %>
+                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    <strong>Warning - </strong> No se encontraron datos
+                                </div>
+                                <% } %>
+
+                                <% for(var i = 0; i < pedidos.length; i++) { %>
+                                <tr>
+                                    <td class="text-body fw-bold"><%= pedidos[i].id_pedido %></td>
+                                    <td><%= pedidos[i].fecha_pedido %></td>
+                                    <td>
+                                        <h5>
+                                            <% if (pedidos[i].estado_compra == 1) { %>
+                                            <span class="badge badge-success-lighten"><i class="mdi mdi-coin"></i>Pagado</span>
+                                            <% } else { %>
+                                            <span class="badge badge-danger-lighten"><i class="mdi mdi-coin"></i>Por Pagar</span>
+                                            <% } %>
+                                        </h5>
+                                    </td>
+                                    <td><%= pedidos[i].total_pago %></td>
+                                    <td>
+                                        <% if (pedidos[i].forma_pago == 1) { %>
+                                            QR
+                                        <% } %>
+                                    </td>
+                                    <td>
+                                        <h5>
+                                            <% if (pedidos[i].estado_pago == 1) { %>
+                                            <span class="badge badge-success-lighten"><i class="mdi mdi-coin"></i>Pago Confirmado</span>
+                                            <% } else { %>
+                                            <span class="badge badge-danger-lighten"><i class="mdi mdi-coin"></i>Pago No Confirmado</span>
+                                            <% } %>
+                                        </h5>
+                                    </td>
+                                    <td>
+                                        <a href="pedidoDetalle?id_pedido=<%= pedidos[i].id_pedido %>" class="action-icon"> <i class="mdi mdi-eye"></i></a>
+                                    </td>
+                                </tr>
+                                <% } %>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div> <!-- end card-body-->
+            </div> <!-- end card-->
+        </div> <!-- end col -->
+    </div>
+    <!-- end row --> 
+    
+</div>
+
+<%- include layouts/footer.ejs %>
