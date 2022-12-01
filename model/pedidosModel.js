@@ -50,9 +50,70 @@ confirmarPagoPedidoPorId = async (id_pedido) => {
     }
 }
 
+pedidosPorIdCliente = async (id_cliente) => {
+    const sql = `SELECT	pedidos.id_pedido, pedidos.id_cliente, pedidos.direccion_entrega, pedidos.fecha_pedido, pedidos.fecha_entrega, pedidos.total_pago, pedidos.forma_pago, 
+	pedidos.estado_pago, pedidos.estado_compra, pedidos.imagen_comprobante, productos.id_producto, productos.nombre, productos.descripcion, productos.tipo, productos.precio, 
+	productos.imagen, detalle_pedidos.cantidad_producto, detalle_pedidos.precio_producto_unitario, detalle_pedidos.precio_producto_total
+    FROM pedidos INNER JOIN	detalle_pedidos ON pedidos.id_pedido = detalle_pedidos.id_pedido INNER JOIN productos ON detalle_pedidos.id_producto = productos.id_producto
+    WHERE estado_pago <> 0 OR estado_compra <> 0 AND pedidos.id_cliente = ? ORDER BY pedidos.fecha_pedido DESC`;
+    let datos = [];
+    const respDb = await db(sql, [id_cliente]);
+    console.log(respDb);
+    if (respDb.ok) {
+        respDb.data.forEach(e => {
+            const existeDato = datos.find( d => e.id_pedido == d.id_pedido);
+            if (existeDato === undefined) {
+                datos.push({
+                    id_pedido: e.id_pedido,
+                    id_cliente: e.id_cliente,
+                    direccion_entrega: e.direccion_entrega,
+                    fecha_pedido: e.fecha_pedido,
+                    fecha_entrega: e.fecha_entrega,
+                    total_pago: e.total_pago,
+                    forma_pago: e.forma_pago,
+                    estado_pago: e.estado_pago,
+                    estado_compra: e.estado_compra,
+                    imagen_comprobante: e.imagen_comprobante,
+                    productos: [
+                        {
+                            id_producto: e.id_producto,
+                            nombre: e.nombre,
+                            descripcion: e.descripcion,
+                            tipo: e.tipo,
+                            precio: e.precio,
+                            imagen: e.imagen,
+                            cantidad_producto: e.cantidad_producto,
+                            precio_producto_unitario: e.precio_producto_unitario,
+                            precio_producto_total: e.precio_producto_total
+                        }
+                    ]
+                })
+            }else {
+                existeDato.productos.push(
+                    {
+                        id_producto: e.id_producto,
+                        nombre: e.nombre,
+                        descripcion: e.descripcion,
+                        tipo: e.tipo,
+                        precio: e.precio,
+                        imagen: e.imagen,
+                        cantidad_producto: e.cantidad_producto,
+                        precio_producto_unitario: e.precio_producto_unitario,
+                        precio_producto_total: e.precio_producto_total
+                    }
+                )
+            }
+        });
+        return datos;
+    } else {
+        return []
+    }
+}
+
 module.exports = {
     updateInfPedidoPorId,
     listaPedidos,
     pedidoPorId,
-    confirmarPagoPedidoPorId
+    confirmarPagoPedidoPorId,
+    pedidosPorIdCliente
 }
